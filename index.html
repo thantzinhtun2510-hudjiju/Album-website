@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>Thant Zin Htun — Personal Album</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root{--bg:#090d18;--panel:#111827;--line:#273247;--muted:#98a5bb;--text:#f3f6fc;--cyan:#67e8f9;--purple:#c4b5fd}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(ellipse at 15% 0%,#12233a 0,transparent 36%),radial-gradient(ellipse at 90% 18%,#21163d 0,transparent 30%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+    a{color:inherit;text-decoration:none} button,input{font:inherit} button{cursor:pointer}
+    .wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+    .nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;position:sticky;top:0;z-index:10;background:#090d18d9;backdrop-filter:blur(18px)}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700} .brand-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#67e8f9,#8b5cf6);color:#08111f}
+    .brand small{display:block;color:var(--cyan);font:10px 'Space Mono',monospace;letter-spacing:1.2px;margin-top:3px}
+    .nav-link{font:12px 'Space Mono',monospace;color:#c7d2e3;border:1px solid var(--line);padding:10px 13px;border-radius:11px;transition:.2s}.nav-link:hover{border-color:var(--cyan);color:var(--cyan)}
+    .hero{padding:66px 0 44px} .hero-panel{border:1px solid #ffffff14;border-radius:28px;padding:clamp(24px,5vw,52px);background:linear-gradient(135deg,#101b2cdd,#111124dd);box-shadow:0 24px 80px #0003;position:relative;overflow:hidden}
+    .hero-panel:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-80px;top:-100px;background:#8b5cf626;filter:blur(4px);pointer-events:none}
+    .eyebrow{font:11px 'Space Mono',monospace;color:var(--cyan);letter-spacing:2px;text-transform:uppercase} h1{font-size:clamp(36px,6vw,64px);letter-spacing:-2px;line-height:1.04;margin:16px 0} .gradient{background:linear-gradient(100deg,#67e8f9,#c4b5fd);background-clip:text;-webkit-background-clip:text;color:transparent}
+    .intro{color:#b4bfd1;line-height:1.8;max-width:650px;font-size:15px} .hero-bottom{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px} .pill{padding:9px 12px;border:1px solid #ffffff16;background:#0a1220a6;border-radius:999px;color:#cbd5e1;font-size:12px} .pill i{color:var(--cyan);margin-right:7px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:16px 0 22px} h2{font-size:25px;margin:0 0 7px;letter-spacing:-.5px} .sub{margin:0;color:var(--muted);font-size:13px}
+    .tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;align-items:center} .search{flex:1;min-width:210px;position:relative} .search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8492a8} .search input{width:100%;background:#111827;border:1px solid var(--line);color:var(--text);padding:12px 14px 12px 40px;border-radius:12px;outline:none} .search input:focus{border-color:#67e8f9aa}
+    .filters{display:flex;gap:7px;flex-wrap:wrap} .filter{border:1px solid var(--line);background:#111827;color:#aebbd0;padding:10px 13px;border-radius:11px;font-size:12px;transition:.2s} .filter.active,.filter:hover{background:#67e8f9;color:#07111c;border-color:#67e8f9;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding-bottom:72px} .album-card{min-width:0;background:linear-gradient(160deg,#141e2f,#0d1421);border:1px solid #ffffff12;border-radius:19px;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s} .album-card:hover{transform:translateY(-5px);border-color:#67e8f966;box-shadow:0 15px 40px #0003}
+    .photo-button{display:block;width:100%;border:0;padding:0;position:relative;aspect-ratio:4/3;background:#0b1220;overflow:hidden;text-align:left;color:var(--text)} .photo-button img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s} .album-card:hover .photo-button img{transform:scale(1.045)}
+    .image-placeholder{width:100%;height:100%;place-items:center;align-content:center;gap:10px;text-align:center;padding:18px;background:radial-gradient(circle at 50% 35%,#1e3551,#0b1220 70%);color:#cbd5e1} .image-placeholder i{font-size:32px;color:var(--cyan)} .image-placeholder strong{font-size:16px} .image-placeholder small{font:10px 'Space Mono',monospace;color:#8191aa;overflow-wrap:anywhere}
+    .photo-overlay{position:absolute;inset:0;display:flex;align-items:end;padding:16px;background:linear-gradient(transparent 45%,#020617c9);opacity:0;transition:.25s} .photo-button:hover .photo-overlay,.photo-button:focus-visible .photo-overlay{opacity:1} .photo-overlay span{font-size:12px;color:white} .photo-overlay i{color:var(--cyan);margin-right:6px}
+    .card-info{padding:15px;display:flex;justify-content:space-between;gap:10px;align-items:center} .category{color:var(--cyan);font:10px 'Space Mono',monospace;text-transform:uppercase;letter-spacing:1px} h3{font-size:16px;margin:7px 0 5px} .card-info p{font-size:12px;color:var(--muted);line-height:1.55;margin:0;max-width:280px} .open-btn{flex:none;width:36px;height:36px;border:1px solid var(--line);border-radius:11px;background:#0b1220;color:#b7c4d8} .open-btn:hover{color:var(--cyan);border-color:var(--cyan)}
+    .empty{display:none;text-align:center;color:var(--muted);padding:44px;border:1px dashed var(--line);border-radius:16px;margin-bottom:60px}
+    footer{border-top:1px solid #ffffff12;padding:25px 0;color:#8190a6;font:11px 'Space Mono',monospace} .foot-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .lightbox{position:fixed;inset:0;z-index:30;background:#02040beF;backdrop-filter:blur(15px);display:none;align-items:center;justify-content:center;padding:22px} .lightbox.open{display:flex} .lightbox-inner{width:min(100%,980px);display:flex;flex-direction:column;align-items:center;gap:14px} .lightbox img{max-width:100%;max-height:70vh;object-fit:contain;border-radius:15px;box-shadow:0 20px 70px #0008} .lightbox-title{text-align:center} .lightbox-title h3{font-size:20px;margin:0 0 5px} .lightbox-title p{color:var(--muted);font-size:13px;margin:0} .lb-close,.lb-arrow{position:absolute;border:1px solid #ffffff26;background:#111827dd;color:white;border-radius:50%;width:44px;height:44px;display:grid;place-items:center} .lb-close{right:20px;top:20px} .lb-arrow{top:50%;transform:translateY(-50%)} .lb-prev{left:18px} .lb-next{right:18px} .lb-close:hover,.lb-arrow:hover{color:var(--cyan);border-color:var(--cyan)}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}} @media(max-width:560px){.wrap{width:calc(100% - 24px)}.nav{height:64px}.nav-link{padding:9px;font-size:10px}.hero{padding-top:32px}.grid{grid-template-columns:1fr;gap:14px}.section-head{align-items:start;flex-direction:column}.photo-button{aspect-ratio:5/3}.lb-arrow{top:auto;bottom:22px;transform:none}.lb-prev{left:calc(50% - 54px)}.lb-next{right:calc(50% - 54px)}.lightbox img{max-height:60vh}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <a class="brand" href="#"><span class="brand-icon"><i class="fa-solid fa-camera-retro"></i></span><span>Thant Zin Htun<small>PERSONAL ALBUM</small></span></a>
+    <a class="nav-link" href="https://github.com/thantzinhtun2561" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i> GitHub Profile</a>
+  </div></nav>
+  <header class="hero"><div class="wrap"><div class="hero-panel">
+    <span class="eyebrow">A little world of mine</span>
+    <h1>Moments, <span class="gradient">memories</span><br> &amp; progress.</h1>
+    <p class="intro">Welcome to my personal album — a collection of my photos, study sessions, coding journey, certificates, music, and workspace. Every picture marks a small part of who I am becoming.</p>
+    <div class="hero-bottom"><span class="pill"><i class="fa-solid fa-images"></i><span id="photo-count">12</span> collections</span><span class="pill"><i class="fa-solid fa-code"></i> Aspiring Software Engineer</span><span class="pill"><i class="fa-solid fa-location-dot"></i> Myanmar</span></div>
+  </div></div></header>
+  <main class="wrap">
+    <div class="section-head"><div><h2><i class="fa-regular fa-images gradient"></i> Photo Collections</h2><p class="sub">A gallery of things I learn, love, and create.</p></div><p class="sub"><span id="visible-count">12</span> items shown</p></div>
+    <div class="tools"><label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" type="search" placeholder="Search collections..." aria-label="Search collections"></label>
+      <div class="filters" role="group" aria-label="Filter collections">
+        <button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Profile">Profile</button><button class="filter" data-filter="Coding">Coding</button><button class="filter" data-filter="Study">Study</button><button class="filter" data-filter="Workspace">Workspace</button><button class="filter" data-filter="Certificates">Certificates</button><button class="filter" data-filter="Lifestyle">Lifestyle</button>
+      </div>
+    </div>
+    <section class="grid" id="gallery">
+      
+      <article class="album-card" data-category="Certificates" data-title="certificates collection">
+        <button class="photo-button" type="button" data-index="0" aria-label="Open Certificates Collection photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Certificates Collection.jpg -->
+          <img src="album/Certificates%20Collection.jpg" alt="Certificates Collection" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-certificate"></i>
+            <strong>Certificates Collection</strong>
+            <small>Replace image: album/Certificates Collection.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Certificates</span><h3>Certificates Collection</h3><p>A collection of certificates and achievements.</p></div>
+          <button class="open-btn" type="button" data-index="0" aria-label="View Certificates Collection"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Lifestyle" data-title="music">
+        <button class="photo-button" type="button" data-index="1" aria-label="Open Music photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Music.jpg -->
+          <img src="album/Music.jpg" alt="Music" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-music"></i>
+            <strong>Music</strong>
+            <small>Replace image: album/Music.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Lifestyle</span><h3>Music</h3><p>Music that keeps me company while I learn and create.</p></div>
+          <button class="open-btn" type="button" data-index="1" aria-label="View Music"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Study" data-title="study">
+        <button class="photo-button" type="button" data-index="2" aria-label="Open Study photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Study.jpg -->
+          <img src="album/Study.jpg" alt="Study" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-book-open"></i>
+            <strong>Study</strong>
+            <small>Replace image: album/Study.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Study</span><h3>Study</h3><p>Study notes, books, and everyday learning.</p></div>
+          <button class="open-btn" type="button" data-index="2" aria-label="View Study"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Study" data-title="night study">
+        <button class="photo-button" type="button" data-index="3" aria-label="Open Night Study photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Night Study.jpg -->
+          <img src="album/Night%20Study.jpg" alt="Night Study" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-moon"></i>
+            <strong>Night Study</strong>
+            <small>Replace image: album/Night Study.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Study</span><h3>Night Study</h3><p>Quiet late-night study moments.</p></div>
+          <button class="open-btn" type="button" data-index="3" aria-label="View Night Study"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Coding" data-title="day code">
+        <button class="photo-button" type="button" data-index="4" aria-label="Open Day Code photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Day Code.jpg -->
+          <img src="album/Day%20Code.jpg" alt="Day Code" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-code"></i>
+            <strong>Day Code</strong>
+            <small>Replace image: album/Day Code.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Coding</span><h3>Day Code</h3><p>Daytime coding sessions and progress.</p></div>
+          <button class="open-btn" type="button" data-index="4" aria-label="View Day Code"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Coding" data-title="cool code">
+        <button class="photo-button" type="button" data-index="5" aria-label="Open Cool Code photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Cool Code.jpg -->
+          <img src="album/Cool%20Code.jpg" alt="Cool Code" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-laptop-code"></i>
+            <strong>Cool Code</strong>
+            <small>Replace image: album/Cool Code.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Coding</span><h3>Cool Code</h3><p>My favourite coding moments and editor views.</p></div>
+          <button class="open-btn" type="button" data-index="5" aria-label="View Cool Code"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Profile" data-title="avatar">
+        <button class="photo-button" type="button" data-index="6" aria-label="Open Avatar photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Avatar.png -->
+          <img src="album/Avatar.png" alt="Avatar" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-user"></i>
+            <strong>Avatar</strong>
+            <small>Replace image: album/Avatar.png</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Profile</span><h3>Avatar</h3><p>A profile photo that represents me.</p></div>
+          <button class="open-btn" type="button" data-index="6" aria-label="View Avatar"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Coding" data-title="relax code">
+        <button class="photo-button" type="button" data-index="7" aria-label="Open Relax Code photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/Relax Code.jpg -->
+          <img src="album/Relax%20Code.jpg" alt="Relax Code" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-terminal"></i>
+            <strong>Relax Code</strong>
+            <small>Replace image: album/Relax Code.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Coding</span><h3>Relax Code</h3><p>A relaxed coding setup and dark editor theme.</p></div>
+          <button class="open-btn" type="button" data-index="7" aria-label="View Relax Code"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Coding" data-title="vscode layout">
+        <button class="photo-button" type="button" data-index="8" aria-label="Open VSCode Layout photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/VSCode Layout.jpg -->
+          <img src="album/VSCode%20Layout.jpg" alt="VSCode Layout" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-window-maximize"></i>
+            <strong>VSCode Layout</strong>
+            <small>Replace image: album/VSCode Layout.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Coding</span><h3>VSCode Layout</h3><p>My Visual Studio Code workspace layout.</p></div>
+          <button class="open-btn" type="button" data-index="8" aria-label="View VSCode Layout"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Profile" data-title="my photo">
+        <button class="photo-button" type="button" data-index="9" aria-label="Open My photo photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/My photo.jpg -->
+          <img src="album/My%20photo.jpg" alt="My photo" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-camera"></i>
+            <strong>My photo</strong>
+            <small>Replace image: album/My photo.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Profile</span><h3>My photo</h3><p>A personal photo from my own collection.</p></div>
+          <button class="open-btn" type="button" data-index="9" aria-label="View My photo"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Workspace" data-title="pc workspace">
+        <button class="photo-button" type="button" data-index="10" aria-label="Open PC Workspace photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/PC Workspace.jpg -->
+          <img src="album/PC%20Workspace.jpg" alt="PC Workspace" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-desktop"></i>
+            <strong>PC Workspace</strong>
+            <small>Replace image: album/PC Workspace.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Workspace</span><h3>PC Workspace</h3><p>My PC desk and workspace setup.</p></div>
+          <button class="open-btn" type="button" data-index="10" aria-label="View PC Workspace"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+      <article class="album-card" data-category="Coding" data-title="github profile">
+        <button class="photo-button" type="button" data-index="11" aria-label="Open GitHub Profile photo">
+          <!-- REPLACE IMAGE HERE: save your photo as album/GitHub Profile.jpg -->
+          <img src="album/GitHub%20Profile.jpg" alt="GitHub Profile" loading="lazy"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+          <span class="image-placeholder" style="display:none">
+            <i class="fa-solid fa-github"></i>
+            <strong>GitHub Profile</strong>
+            <small>Replace image: album/GitHub Profile.jpg</small>
+          </span>
+          <span class="photo-overlay"><span><i class="fa-solid fa-expand"></i> View photo</span></span>
+        </button>
+        <div class="card-info">
+          <div><span class="category">Coding</span><h3>GitHub Profile</h3><p>My developer profile and GitHub journey.</p></div>
+          <button class="open-btn" type="button" data-index="11" aria-label="View GitHub Profile"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+        </div>
+      </article>
+    </section>
+    <div class="empty" id="empty">No collections found. Try a different search.</div>
+  </main>
+  <footer><div class="wrap foot-inner"><span>© 2026 Thant Zin Htun · PERSONAL ALBUM</span><span>Built with care <span style="color:#67e8f9">✦</span> Keep learning, keep growing.</span></div></footer>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-close" id="close" aria-label="Close photo"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lb-arrow lb-prev" id="prev" aria-label="Previous photo"><i class="fa-solid fa-chevron-left"></i></button>
+    <div class="lightbox-inner"><img id="lb-img" src="" alt=""><div class="lightbox-title"><h3 id="lb-title"></h3><p id="lb-desc"></p><p id="lb-counter" style="margin-top:8px;font-family:'Space Mono',monospace"></p></div></div>
+    <button class="lb-arrow lb-next" id="next" aria-label="Next photo"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+<script>
+  // IMAGE LIST: update the file in /album or edit each src below if you use another filename.
+  const photos = [
+    { title: 'Certificates Collection', category: 'Certificates', src: 'album/Certificates%20Collection.jpg', desc: 'A collection of certificates and achievements.' },
+{ title: 'Music', category: 'Lifestyle', src: 'album/Music.jpg', desc: 'Music that keeps me company while I learn and create.' },
+{ title: 'Study', category: 'Study', src: 'album/Study.jpg', desc: 'Study notes, books, and everyday learning.' },
+{ title: 'Night Study', category: 'Study', src: 'album/Night%20Study.jpg', desc: 'Quiet late-night study moments.' },
+{ title: 'Day Code', category: 'Coding', src: 'album/Day%20Code.jpg', desc: 'Daytime coding sessions and progress.' },
+{ title: 'Cool Code', category: 'Coding', src: 'album/Cool%20Code.jpg', desc: 'My favourite coding moments and editor views.' },
+{ title: 'Avatar', category: 'Profile', src: 'album/Avatar.png', desc: 'A profile photo that represents me.' },
+{ title: 'Relax Code', category: 'Coding', src: 'album/Relax%20Code.jpg', desc: 'A relaxed coding setup and dark editor theme.' },
+{ title: 'VSCode Layout', category: 'Coding', src: 'album/VSCode%20Layout.jpg', desc: 'My Visual Studio Code workspace layout.' },
+{ title: 'My photo', category: 'Profile', src: 'album/My%20photo.jpg', desc: 'A personal photo from my own collection.' },
+{ title: 'PC Workspace', category: 'Workspace', src: 'album/PC%20Workspace.jpg', desc: 'My PC desk and workspace setup.' },
+{ title: 'GitHub Profile', category: 'Coding', src: 'album/GitHub%20Profile.jpg', desc: 'My developer profile and GitHub journey.' }
+  ];
+  const cards = [...document.querySelectorAll('.album-card')];
+  const filterButtons = [...document.querySelectorAll('.filter')];
+  const search = document.getElementById('search');
+  let activeFilter = 'All';
+  let currentIndex = 0;
+  let visible = photos.map((_, i) => i);
+
+  function applyFilters() {
+    const q = search.value.trim().toLowerCase();
+    cards.forEach((card, i) => {
+      const matchesCategory = activeFilter === 'All' || card.dataset.category === activeFilter;
+      const matchesSearch = card.dataset.title.includes(q) || photos[i].desc.toLowerCase().includes(q) || card.dataset.category.toLowerCase().includes(q);
+      card.style.display = matchesCategory && matchesSearch ? '' : 'none';
+    });
+    visible = cards.map((card, i) => card.style.display !== 'none' ? i : -1).filter(i => i >= 0);
+    document.getElementById('visible-count').textContent = visible.length;
+    document.getElementById('empty').style.display = visible.length ? 'none' : 'block';
+  }
+  filterButtons.forEach(btn => btn.addEventListener('click', () => {
+    activeFilter = btn.dataset.filter;
+    filterButtons.forEach(b => b.classList.toggle('active', b === btn));
+    applyFilters();
+  }));
+  search.addEventListener('input', applyFilters);
+
+  const lightbox = document.getElementById('lightbox');
+  function openPhoto(index) {
+    currentIndex = index;
+    const p = photos[index];
+    document.getElementById('lb-img').src = p.src;
+    document.getElementById('lb-img').alt = p.title;
+    document.getElementById('lb-title').textContent = p.title;
+    document.getElementById('lb-desc').textContent = p.desc;
+    document.getElementById('lb-counter').textContent = `${visible.indexOf(index) + 1} / ${visible.length}`;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePhoto() { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
+  function movePhoto(step) {
+    if (!visible.length) return;
+    let pos = visible.indexOf(currentIndex);
+    if (pos < 0) pos = 0;
+    currentIndex = visible[(pos + step + visible.length) % visible.length];
+    openPhoto(currentIndex);
+  }
+  document.querySelectorAll('[data-index]').forEach(btn => btn.addEventListener('click', () => openPhoto(Number(btn.dataset.index))));
+  document.getElementById('close').addEventListener('click', closePhoto);
+  document.getElementById('prev').addEventListener('click', () => movePhoto(-1));
+  document.getElementById('next').addEventListener('click', () => movePhoto(1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closePhoto(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closePhoto();
+    if (e.key === 'ArrowRight') movePhoto(1);
+    if (e.key === 'ArrowLeft') movePhoto(-1);
+  });
+  document.getElementById('photo-count').textContent = photos.length;
+  applyFilters();
+</script>
+</body>
+</html>
